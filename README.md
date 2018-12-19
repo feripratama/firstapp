@@ -2,6 +2,8 @@
 
 ### composer install
 
+### rename .env.example -> .env
+
 ### php artisan key:generate
 
 ## configuration file .env
