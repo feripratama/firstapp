@@ -1,7 +1,8 @@
 ## First Laravel APP
 
-```composer install```
-```php artisan key:generate```
+### composer install
+
+### php artisan key:generate
 
 ## configuration file .env
 
