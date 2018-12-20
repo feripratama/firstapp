@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Validator;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,4 +39,30 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request)
+    {
+
+        $validator = Validator::make($request->all(),
+                                    [
+                                        'email' => 'required|exists:users,email',
+                                        'password' => 'required'
+                                    ]
+                                );
+        if($validator->fails()) {
+            $result = ['msg' => 'Login Failed', 'type' => 'warning', 'url' => '#'];
+        } else {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+            {
+                $result = ['msg' => 'Login Success', 'type' => 'success', 'url' => $this->redirectTo];
+            }
+            else
+            {
+                $result = ['msg' => 'Wrong password .', 'type' => 'warning', 'url' => '#'];
+            }
+
+        }
+        return response()->json($result);
+    }
+
 }

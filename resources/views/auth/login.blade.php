@@ -31,13 +31,16 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="{{ route('welcome') }}"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    <div id="msg" class="alert text-center">
+        <strong></strong>
+    </div>
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="{{ route('login') }}" method="post">
+    <form action="{{ route('login') }}" method="post" id="frm-login">
         {{ csrf_field() }}
         <div class="form-group {{ $errors->has('email') ? ' has-error' : 'has-feedback' }}">
             <input type="email" class="form-control" name="email" placeholder="E-Mail Address" value="{{ old('email') }}">
@@ -67,7 +70,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <button type="submit" id="btnsubmit" class="btn btn-primary btn-block btn-flat" onclick="return false;" >Sign In</button>
         </div>
         <!-- /.col -->
         </div>
@@ -75,7 +78,7 @@
     <!-- /.social-auth-links -->
 
     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -96,6 +99,52 @@
         increaseArea: '20%' /* optional */
         });
     });
+
+    var pages = function(){
+
+        return {
+           Init : function() {
+               $('#btnsubmit').click(function() {
+                    $(this).text('Please wait . .');
+                    $.ajax({
+                        url : $('#frm-login').attr('action'),
+                        type:'post',
+                        data:{
+                            email : $('input[name=email]').val(),
+                            _token: $('input[name=_token]').val(),
+                            password: $('input[name=password]').val()
+                        },
+
+                        success:function(data, status, c) {
+                            $('#msg').addClass(`alert-${data.type}`);
+                            $('#msg strong').text(data.msg);
+                            $('#msg').show();
+                            $('#btnsubmit').text('Sign In');
+                            window.location = `${data.url}`;
+                        },
+
+                        error:function(data, status, c) {
+                            $('#msg').addClass(`alert-${data.type}`);
+                            $('#msg strong').text('Login failed.')
+                            $('#msg').show();
+                            $('#btnsubmit').text('Sign In');
+                        }
+                    })
+
+               })
+           }
+
+        }
+
+    }();
+
+
+    $(function(){
+        $('#msg').hide();
+        pages.Init();
+    })
+
+
 </script>
 </body>
 </html>

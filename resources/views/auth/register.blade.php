@@ -1,4 +1,4 @@
-@if(Auth::guesth)
+@if(Auth::guest())
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +94,7 @@
         </div>
     </form>
 
-    <a href="login.html" class="text-center">I already have a membership</a>
+    <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
 </div>
 <!-- /.form-box -->
 </div>
@@ -112,5 +112,5 @@
 </body>
 </html>
 @else
-@php Redirect::to('/') @endphp
+    @php Redirect::to('/') @endphp
 @endif
