@@ -35,6 +35,11 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div id="msg" class="alert text-center">
         <strong></strong>
     </div>

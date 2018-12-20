@@ -36,6 +36,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/verify/{token}', 'VerifyUserController@index')->name('verifyUser');
+
 Route::middleware(['auth'])->prefix('setting')->group(function() {
     Route::get('profile','ProfileController@index')->name('profileIndex');
     Route::post('profile/full-name-save-edit', 'ProfileController@update')->name('profileUpdate');

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -49,16 +50,21 @@ class LoginController extends Controller
                                         'password' => 'required'
                                     ]
                                 );
+        $check_email_confirm = User::where('email', $request->email)->first();
+
         if($validator->fails()) {
             $result = ['msg' => 'Login Failed', 'type' => 'warning', 'url' => '#'];
         } else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
-            {
-                $result = ['msg' => 'Login Success', 'type' => 'success', 'url' => $this->redirectTo];
-            }
-            else
-            {
-                $result = ['msg' => 'Wrong password .', 'type' => 'warning', 'url' => '#'];
+
+            if($check_email_confirm->email_confirm == 0) {
+                $result = ['msg' => 'You need to confirm your account. We have sent you an activation code, please check your email.', 'type' => 'success', 'url' => '#'];
+            } else {
+                if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                    $result = ['msg' => 'Login Success', 'type' => 'success', 'url' => $this->redirectTo];
+                } else {
+                    $result = ['msg' => 'Wrong password .', 'type' => 'warning', 'url' => '#'];
+                }
+
             }
 
         }

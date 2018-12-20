@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Auth;
+use App\Mail\VerifyMail;
 
 class RegisterController extends Controller
 {
@@ -87,12 +88,22 @@ class RegisterController extends Controller
             $mobilephone = $data['mobilephone'];
         }
 
-        return User::create([
+        $user = User::create([
             'userid' => $data['userid'],
             'mobilephone' => $mobilephone,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        \Mail::to($user->email)->send(new VerifyMail($user));
+
+        return $user;
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
     }
 }
