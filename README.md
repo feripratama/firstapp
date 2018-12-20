@@ -17,6 +17,8 @@ DB_PASSWORD=root
 ## create database
 `database name = firstapp`
 
+## php artisan migrate
+
 ## run 
 ```bash
 php artisan serve
