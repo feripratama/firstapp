@@ -27,16 +27,24 @@ class VerifyUserController extends Controller
         $email = $token[0];
         $user_id = $token[1];
 
-        $check_token = $user->where('email', $email)->where('userid', $user_id)->count();
+        $check_token = $user->where('email', $email)->where('userid', $user_id);
 
-        if($check_token == 0)
+        if($check_token->count() == 0)
         {
             return redirect()->route('login');
-        } elseif($check_token == 1) {
-            return redirect()->route('login')->with('status', 'Your e-mail is already verified. You can now login.');
+        } elseif($check_token->count() == 1) {
+            if($check_token->first()->email_confirm == 1) {
+                return redirect()->route('login')->with('status', 'Your e-mail is already verified. You can now login.');
+            } else {
+                $user->where('email', $email)->where('userid', $user_id)->update([
+                    'email_confirm' => 1
+                ]);
+                return redirect()->route('login')->with('status', 'Thanks for confirmation. Please login');
+            }
+
+            // return redirect()->route('login')->with('status', 'Your e-mail is already verified. You can now login.');
         }
 
-        return redirect()->route('login')->with('status', 'Thanks for confirmation. Please login');
     }
 
     /**
