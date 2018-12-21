@@ -39,3 +39,8 @@ php artisan migrate
 php artisan serve
 ```
 ```http://localhost:8000```
+
+
+## License
+
+[MIT license](https://opensource.org/licenses/MIT).
