@@ -71,4 +71,11 @@ class LoginController extends Controller
         return response()->json($result);
     }
 
+    public function username()
+    {
+        return 'email';
+
+        // to do change to 'userid'
+    }
+
 }

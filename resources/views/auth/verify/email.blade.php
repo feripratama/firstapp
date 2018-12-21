@@ -9,7 +9,7 @@
 <br/>
 Your registered email-id is {{$user['email']}} , Please click on the below link to verify your email account
 <br/>
-<a href="/verify/{{base64_encode($user['email'].'|'.$user['userid'])}}">Verify Email</a>
+<a href="{{env('APP_URL')}}/verify/{{base64_encode($user['email'].'|'.$user['userid'])}}">Verify Email</a>
 </body>
 
 </html>
