@@ -1,12 +1,12 @@
 ## First Laravel APP
 
-### composer install
+## 1. first :
 
-### rename .env.example -> .env
+1. ```composer install```
+2. rename .env.example -> .env
+3. ```php artisan key:generate```
 
-### php artisan key:generate
-
-## configuration file .env
+## 2. configuration file .env
 
 ```
 DB_DATABASE=firstapp
@@ -14,14 +14,18 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-## create database
+## 3. create database :
 `database name = firstapp`
 
-## php artisan migrate
+## 4. migrate table to database :
+run this command on ```terminal``` or ```cmd``` if you use windows OS.
 
-## run 
+```bash
+php artisan migrate
+```
+
+## run
 ```bash
 php artisan serve
 ```
-
-http://localhost:8000
+```http://localhost:8000```
