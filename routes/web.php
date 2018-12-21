@@ -25,7 +25,6 @@ Route::group(['namespace' => 'auth'],function(){
         Auth::logout();
         return redirect('/');
     })->name('logout');
-
 });
 
 Auth::routes();

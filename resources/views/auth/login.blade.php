@@ -47,12 +47,12 @@
 
     <form action="{{ route('login') }}" method="post" id="frm-login">
         {{ csrf_field() }}
-        <div class="form-group {{ $errors->has('email') ? ' has-error' : 'has-feedback' }}">
-            <input type="email" class="form-control" name="email" placeholder="E-Mail Address" value="{{ old('email') }}">
+        <div class="form-group {{ $errors->has('userid') ? ' has-error' : 'has-feedback' }}">
+            <input type="text" class="form-control" name="userid" placeholder="User ID" value="{{ old('userid') }}">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            @if ($errors->has('email'))
+            @if ($errors->has('userid'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
+                    <strong>{{ $errors->first('userid') }}</strong>
                 </span>
             @endif
         </div>
@@ -115,7 +115,7 @@
                         url : $('#frm-login').attr('action'),
                         type:'post',
                         data:{
-                            email : $('input[name=email]').val(),
+                            userid : $('input[name=userid]').val(),
                             _token: $('input[name=_token]').val(),
                             password: $('input[name=password]').val()
                         },

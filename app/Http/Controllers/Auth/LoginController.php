@@ -46,11 +46,12 @@ class LoginController extends Controller
 
         $validator = Validator::make($request->all(),
                                     [
-                                        'email' => 'required|exists:users,email',
+                                        'userid' => 'required|exists:users,userid',
                                         'password' => 'required'
                                     ]
                                 );
-        $check_email_confirm = User::where('email', $request->email)->first();
+        $check_email_confirm = User::where('userid', $request->userid)->first();
+
 
         if($validator->fails()) {
             $result = ['msg' => 'Login Failed', 'type' => 'warning', 'url' => '#'];
@@ -59,7 +60,7 @@ class LoginController extends Controller
             if($check_email_confirm->email_confirm == 0) {
                 $result = ['msg' => 'You need to confirm your account. We have sent you an activation code, please check your email.', 'type' => 'success', 'url' => '#'];
             } else {
-                if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                if (Auth::attempt(['userid' => $request->userid, 'password' => $request->password])) {
                     $result = ['msg' => 'Login Success', 'type' => 'success', 'url' => $this->redirectTo];
                 } else {
                     $result = ['msg' => 'Wrong password .', 'type' => 'warning', 'url' => '#'];
@@ -73,7 +74,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'email';
+        return 'userid';
 
         // to do change to 'userid'
     }
