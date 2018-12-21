@@ -12,8 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingpage.index');
 })->name('welcome');
+
+Route::get('/faq', function() {
+    return view('landingpage.faq');
+})->name('faq');
+
+Route::get('/contact-us', function() {
+    return view('landingpage.contactus');
+})->name('contactus');
 
 Route::get('test', function() {
     return view('test');
