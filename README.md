@@ -24,8 +24,9 @@ run this command on ```terminal``` or ```cmd``` if you use windows OS.
 php artisan migrate
 ```
 
-## run
+## 5. run server
 ```bash
 php artisan serve
 ```
+
 ```http://localhost:8000```
