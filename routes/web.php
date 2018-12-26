@@ -23,6 +23,10 @@ Route::get('/contact-us', function() {
     return view('landingpage.contactus');
 })->name('contactus');
 
+Route::get('/about', function() {
+    return view('landingpage.about');
+})->name('about');
+
 Route::get('test', function() {
     return view('test');
 });

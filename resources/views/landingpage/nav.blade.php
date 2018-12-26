@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-center" style="margin-top:10px;">
         <li><a href="{{route('welcome')}}" class="{{ (Route::currentRouteName() == 'welcome') ? 'active' : '' }}">Home </a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="{{ route('about') }}">About</a></li>
         <li><a href="#">Whitepaper</a></li>
         <li><a href="{{ route('faq') }}" class="{{ (Route::currentRouteName() == 'faq') ? 'active' : '' }}">FAQ</a></li>
         <li><a href="{{ route('contactus') }}" class="{{ (Route::currentRouteName() == 'contactus') ? 'active' : '' }}">Contact Us</a></li>
